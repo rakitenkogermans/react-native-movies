@@ -1,118 +1,56 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {useState} from 'react';
+import {IGenre} from './src/@types/IGenre';
+import {IMovie} from './src/@types/IMovie';
+import {Home} from './src/views/Home/Home.tsx';
+import {Genre} from './src/views/Genre/Genre.tsx';
+import {Movie} from './src/views/Movie/Movie.tsx';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const PAGES = {
+  HOME: 0,
+  GENRE: 1,
+  MOVIE: 2,
+};
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+  const [page, setPage] = useState<number>(PAGES.HOME);
+  const [genre, setGenre] = useState<IGenre | undefined>(undefined);
+  const [movie, setMovie] = useState<IMovie | undefined>(undefined);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const chooseGenre = (lGenre: IGenre) => {
+    setGenre(lGenre);
+    setPage(PAGES.GENRE);
   };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+  const chooseMovie = (lMovie: IMovie) => {
+    setMovie(lMovie);
+    setPage(PAGES.MOVIE);
+  };
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  const backToGenres = () => {
+    setMovie(undefined);
+    setPage(PAGES.GENRE);
+  };
+
+  const backToHome = () => {
+    setMovie(undefined);
+    setGenre(undefined);
+    setPage(PAGES.HOME);
+  };
+
+  switch (page) {
+    case PAGES.HOME:
+      return <Home chooseGenre={chooseGenre} />;
+    case PAGES.GENRE:
+      return (
+        <Genre
+          backToHome={backToHome}
+          genre={genre}
+          chooseMovie={chooseMovie}
+        />
+      );
+    case PAGES.MOVIE:
+      return <Movie backToGenres={backToGenres} movie={movie} />;
+  }
+};
 
 export default App;
