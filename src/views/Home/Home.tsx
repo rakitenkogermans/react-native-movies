@@ -2,17 +2,17 @@ import {getGenres} from '../../services/movieService';
 import {useEffect, useState} from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import {IGenre} from '../../@types/IGenre';
-import {Header} from '../../components/Header/Header';
 import {ScrollContainer} from '../../containers/ScrollContainer.tsx';
 import {
   ColorConstants,
   FontConstants,
   SizeConstants,
 } from '../../constants/StyleConstants.ts';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainStackParamList} from '../../@types/Stacks';
 
-interface HomeProps {
-  chooseGenre: (genre: IGenre) => void;
-}
+type HomeProps = NativeStackScreenProps<MainStackParamList, 'Home'>;
+
 const Home = (props: HomeProps) => {
   const [genres, setGenres] = useState<IGenre[]>([]);
 
@@ -22,10 +22,11 @@ const Home = (props: HomeProps) => {
 
   return (
     <ScrollContainer>
-      <Header text="Movie Genres" />
       {genres.map(genre => {
         return (
-          <Pressable onPress={() => props.chooseGenre(genre)}>
+          <Pressable
+            key={genre.id}
+            onPress={() => props.navigation.navigate('Genre', {genre: genre})}>
             <Text style={styles.genreTitle}>{genre.name}</Text>
           </Pressable>
         );

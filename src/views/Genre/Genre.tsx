@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Pressable, Text, StyleSheet} from 'react-native';
-import {IGenre} from '../../@types/IGenre';
 import {IMovie} from '../../@types/IMovie';
 import {
   ColorConstants,
@@ -9,31 +8,25 @@ import {
 } from '../../constants/StyleConstants';
 import {ScrollContainer} from '../../containers/ScrollContainer';
 import {getMovieByGenreId} from '../../services/movieService';
-import {BackButton} from '../../components/BackButton/BackButton.tsx';
-import {Header} from '../../components/Header/Header.tsx';
+import {MainStackParamList} from '../../@types/Stacks';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-interface GenreProps {
-  genre: IGenre | undefined;
-  backToHome: () => void;
-  chooseMovie: (movie: IMovie) => void;
-}
-
+type GenreProps = NativeStackScreenProps<MainStackParamList, 'Genre'>;
 const Genre = (props: GenreProps) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
-
   useEffect(() => {
-    if (typeof props.genre !== 'undefined') {
-      setMovies(getMovieByGenreId(props.genre.id));
+    if (typeof props.route.params.genre !== 'undefined') {
+      setMovies(getMovieByGenreId(props.route.params.genre.id));
     }
-  }, [props.genre]);
+  }, [props.route.params.genre]);
 
   return (
     <ScrollContainer>
-      <BackButton onPress={props.backToHome} text="Back to home" />
-      <Header text="Movies" />
       {movies.map(movie => {
         return (
-          <Pressable onPress={() => props.chooseMovie(movie)}>
+          <Pressable
+            key={movie.id}
+            onPress={() => props.navigation.navigate('Movie', {movie: movie})}>
             <Text style={styles.movieTitle}>{movie.title}</Text>
           </Pressable>
         );

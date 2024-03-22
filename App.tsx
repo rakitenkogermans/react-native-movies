@@ -1,56 +1,44 @@
-import {useState} from 'react';
-import {IGenre} from './src/@types/IGenre';
-import {IMovie} from './src/@types/IMovie';
 import {Home} from './src/views/Home/Home.tsx';
 import {Genre} from './src/views/Genre/Genre.tsx';
 import {Movie} from './src/views/Movie/Movie.tsx';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {MainStackParamList} from './src/@types/Stacks';
+import {NavigationContainer} from '@react-navigation/native';
+import {ColorConstants, FontConstants} from './src/constants/StyleConstants.ts';
 
-const PAGES = {
-  HOME: 0,
-  GENRE: 1,
-  MOVIE: 2,
-};
+const MainStack = createNativeStackNavigator<MainStackParamList>();
 
 const App = () => {
-  const [page, setPage] = useState<number>(PAGES.HOME);
-  const [genre, setGenre] = useState<IGenre | undefined>(undefined);
-  const [movie, setMovie] = useState<IMovie | undefined>(undefined);
-
-  const chooseGenre = (lGenre: IGenre) => {
-    setGenre(lGenre);
-    setPage(PAGES.GENRE);
-  };
-
-  const chooseMovie = (lMovie: IMovie) => {
-    setMovie(lMovie);
-    setPage(PAGES.MOVIE);
-  };
-
-  const backToGenres = () => {
-    setMovie(undefined);
-    setPage(PAGES.GENRE);
-  };
-
-  const backToHome = () => {
-    setMovie(undefined);
-    setGenre(undefined);
-    setPage(PAGES.HOME);
-  };
-
-  switch (page) {
-    case PAGES.HOME:
-      return <Home chooseGenre={chooseGenre} />;
-    case PAGES.GENRE:
-      return (
-        <Genre
-          backToHome={backToHome}
-          genre={genre}
-          chooseMovie={chooseMovie}
+  return (
+    <NavigationContainer>
+      <MainStack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: ColorConstants.background,
+          },
+          headerTintColor: ColorConstants.font,
+          headerTitleStyle: {
+            fontWeight: FontConstants.weightBold,
+          },
+        }}>
+        <MainStack.Screen
+          name="Home"
+          component={Home}
+          options={{title: 'Movie Genres'}}
         />
-      );
-    case PAGES.MOVIE:
-      return <Movie backToGenres={backToGenres} movie={movie} />;
-  }
+        <MainStack.Screen
+          name="Genre"
+          component={Genre}
+          options={{title: 'Movies'}}
+        />
+        <MainStack.Screen
+          name="Movie"
+          component={Movie}
+          options={({route}) => ({title: route.params.movie.title})}
+        />
+      </MainStack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default App;
