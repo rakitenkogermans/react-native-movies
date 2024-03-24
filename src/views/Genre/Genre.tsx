@@ -10,12 +10,12 @@ import {ScrollContainer} from '../../containers/ScrollContainer';
 import {getMovieByGenreId} from '../../services/movieService';
 import {MainStackParamList} from '../../@types/Stacks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useUser} from '../../context/UserContext.tsx';
+import {useUserStore} from '../../store/userStore.ts';
 
 type GenreProps = NativeStackScreenProps<MainStackParamList, 'Genre'>;
 const Genre = (props: GenreProps) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
-  const {isFav} = useUser();
+  const favs = useUserStore(state => state.favs);
   useEffect(() => {
     if (typeof props.route.params.genre !== 'undefined') {
       setMovies(getMovieByGenreId(props.route.params.genre.id));
@@ -28,7 +28,7 @@ const Genre = (props: GenreProps) => {
         <Pressable
           style={styles.movieTitleContainer}
           onPress={() => props.navigation.navigate('Movie', {movie: movie})}>
-          {isFav(movie.id) ? (
+          {favs[movie.id] ? (
             <Text style={styles.movieTitleFav}>👍</Text>
           ) : undefined}
           <Text style={styles.movieTitle}>{movie.title}</Text>

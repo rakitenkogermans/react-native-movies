@@ -10,13 +10,13 @@ import {
 } from '../../constants/StyleConstants.ts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParamList} from '../../@types/Stacks';
-import {useUser} from '../../context/UserContext.tsx';
+import {useUserStore} from '../../store/userStore.ts';
 
 type HomeProps = NativeStackScreenProps<MainStackParamList, 'Home'>;
 
 const Home = (props: HomeProps) => {
   const [genres, setGenres] = useState<IGenre[]>([]);
-  const {name} = useUser();
+  const name = useUserStore(state => state.name);
 
   useEffect(() => {
     setGenres(getGenres());

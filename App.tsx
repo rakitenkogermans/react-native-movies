@@ -8,7 +8,6 @@ import {ColorConstants, FontConstants} from './src/constants/StyleConstants.ts';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {User} from './src/views/User/User.tsx';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {UserProvider} from './src/context/UserContext.tsx';
 
 const TabNavigator = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator<MainStackParamList>();
@@ -82,39 +81,37 @@ const UserStackScreen = () => {
 
 const App = () => {
   return (
-    <UserProvider>
-      <NavigationContainer theme={MovieTheme}>
-        <TabNavigator.Navigator
-          screenOptions={{
-            tabBarInactiveBackgroundColor: ColorConstants.background,
-            tabBarActiveBackgroundColor: ColorConstants.background,
-            tabBarInactiveTintColor: ColorConstants.font,
-          }}>
-          <TabNavigator.Screen
-            name="Main"
-            component={MainStackScreen}
-            options={{
-              headerShown: false,
-              tabBarIcon: () => <Icon name="home" size={20} color="#070f49" />,
-            }}
-          />
-          <TabNavigator.Screen
-            name="User"
-            component={UserStackScreen}
-            options={{
-              headerStyle: {
-                backgroundColor: ColorConstants.background,
-              },
-              headerTintColor: ColorConstants.font,
-              headerTitleStyle: {
-                fontWeight: FontConstants.weightBold,
-              },
-              tabBarIcon: () => <Icon name="user" size={20} color="#070f49" />,
-            }}
-          />
-        </TabNavigator.Navigator>
-      </NavigationContainer>
-    </UserProvider>
+    <NavigationContainer theme={MovieTheme}>
+      <TabNavigator.Navigator
+        screenOptions={{
+          tabBarInactiveBackgroundColor: ColorConstants.background,
+          tabBarActiveBackgroundColor: ColorConstants.background,
+          tabBarInactiveTintColor: ColorConstants.font,
+        }}>
+        <TabNavigator.Screen
+          name="Main"
+          component={MainStackScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: () => <Icon name="home" size={20} color="#070f49" />,
+          }}
+        />
+        <TabNavigator.Screen
+          name="User"
+          component={UserStackScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: ColorConstants.background,
+            },
+            headerTintColor: ColorConstants.font,
+            headerTitleStyle: {
+              fontWeight: FontConstants.weightBold,
+            },
+            tabBarIcon: () => <Icon name="user" size={20} color="#070f49" />,
+          }}
+        />
+      </TabNavigator.Navigator>
+    </NavigationContainer>
   );
 };
 
