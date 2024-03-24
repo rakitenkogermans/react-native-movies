@@ -89,7 +89,7 @@ const App = () => {
           tabBarInactiveTintColor: ColorConstants.font,
         }}>
         <TabNavigator.Screen
-          name="Main"
+          name="MainTab"
           component={MainStackScreen}
           options={{
             headerShown: false,
@@ -97,7 +97,7 @@ const App = () => {
           }}
         />
         <TabNavigator.Screen
-          name="User"
+          name="UserTab"
           component={UserStackScreen}
           options={{
             headerStyle: {

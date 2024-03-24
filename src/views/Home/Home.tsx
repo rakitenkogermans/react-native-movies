@@ -19,7 +19,10 @@ const Home = (props: HomeProps) => {
   const name = useUserStore(state => state.name);
 
   useEffect(() => {
-    setGenres(getGenres());
+    const fetchData = async () => {
+      setGenres(await getGenres());
+    };
+    fetchData();
   }, []);
 
   console.log('rerender home');
@@ -29,6 +32,7 @@ const Home = (props: HomeProps) => {
       {genres.map(genre => {
         return (
           <Pressable
+            key={genre.id}
             onPress={() => props.navigation.navigate('Genre', {genre: genre})}>
             <Text style={styles.genreTitle}>{genre.name}</Text>
           </Pressable>

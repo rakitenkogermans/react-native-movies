@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {persist} from 'zustand/middleware';
+import {createJSONStorage, persist} from 'zustand/middleware';
 import {IMovie} from '../@types/IMovie';
 import {IUser} from '../@types/IUser';
 import {getMovieById} from '../services/movieService';
@@ -23,10 +23,10 @@ export const useUserStore = create(
           set({favs: _favs});
         }
       },
-      addFavById: (favId: number) => {
+      addFavById: async (favId: number) => {
         const _favs = {...get().favs};
         if (!_favs[favId]) {
-          const movie = getMovieById(favId);
+          const movie = await getMovieById(favId);
           if (movie) {
             _favs[favId] = movie;
             set({favs: _favs});
@@ -43,7 +43,7 @@ export const useUserStore = create(
     }),
     {
       name: 'HYDRATE::USER',
-      getStorage: () => AsyncStorage,
+      storage: createJSONStorage(() => AsyncStorage),
     },
   ),
 );

@@ -16,9 +16,13 @@ type GenreProps = NativeStackScreenProps<MainStackParamList, 'Genre'>;
 const Genre = (props: GenreProps) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const favs = useUserStore(state => state.favs);
+
   useEffect(() => {
+    const fetchData = async () => {
+      setMovies(await getMovieByGenreId(props.route.params.genre.id));
+    };
     if (typeof props.route.params.genre !== 'undefined') {
-      setMovies(getMovieByGenreId(props.route.params.genre.id));
+      fetchData();
     }
   }, [props.route.params.genre]);
 
@@ -26,6 +30,7 @@ const Genre = (props: GenreProps) => {
     <ScrollContainer>
       {movies.map(movie => (
         <Pressable
+          key={movie.id}
           style={styles.movieTitleContainer}
           onPress={() => props.navigation.navigate('Movie', {movie: movie})}>
           {favs[movie.id] ? (
