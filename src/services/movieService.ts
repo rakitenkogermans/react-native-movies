@@ -16,4 +16,8 @@ const getMovieByGenreId = (genreId: number): Array<IMovie> => {
   return movies.filter(movie => movie.genre_ids.indexOf(genreId) > -1);
 };
 
-export {getGenres, getMovies, getMovieByGenreId};
+const getMovieById = (movieId: number): IMovie | undefined => {
+  return movies.find(movie => movie.id === movieId);
+};
+
+export {getGenres, getMovies, getMovieByGenreId, getMovieById};

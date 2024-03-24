@@ -10,22 +10,25 @@ import {
 } from '../../constants/StyleConstants.ts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParamList} from '../../@types/Stacks';
+import {useUser} from '../../context/UserContext.tsx';
 
 type HomeProps = NativeStackScreenProps<MainStackParamList, 'Home'>;
 
 const Home = (props: HomeProps) => {
   const [genres, setGenres] = useState<IGenre[]>([]);
+  const {name} = useUser();
 
   useEffect(() => {
     setGenres(getGenres());
   }, []);
 
+  console.log('rerender home');
   return (
     <ScrollContainer>
+      <Text style={styles.welcome}>Hello {name}</Text>
       {genres.map(genre => {
         return (
           <Pressable
-            key={genre.id}
             onPress={() => props.navigation.navigate('Genre', {genre: genre})}>
             <Text style={styles.genreTitle}>{genre.name}</Text>
           </Pressable>
@@ -36,6 +39,12 @@ const Home = (props: HomeProps) => {
 };
 
 const styles = StyleSheet.create({
+  welcome: {
+    color: ColorConstants.font,
+    fontSize: FontConstants.sizeTitle,
+    fontWeight: FontConstants.weightBold,
+    marginBottom: SizeConstants.paddingRegular,
+  },
   genreTitle: {
     fontSize: FontConstants.sizeRegular,
     marginBottom: SizeConstants.paddingSmall,
