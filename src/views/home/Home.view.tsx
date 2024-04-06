@@ -2,7 +2,7 @@ import {Pressable, Text} from 'react-native';
 
 import {HomeViewProps} from './Home.types';
 import styles from './Home.styles';
-import {ScrollContainer} from '../../containers/ScrollContainer.tsx';
+import {ScrollContainer} from '../../containers/ScrollContainer';
 
 const HomeView = (props: HomeViewProps) => {
   return (

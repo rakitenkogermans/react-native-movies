@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, View, StyleSheet, Pressable} from 'react-native';
 import {FontConstants, ColorConstants} from '../../constants/StyleConstants';
-import {ScrollContainer} from '../../containers/ScrollContainer.tsx';
+import {ScrollContainer} from '../../containers/ScrollContainer';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParamList} from '../../@types/Stacks';
-import {useUserStore} from '../../store/userStore.ts';
+import {useUserStore} from '../../store/userStore';
 
 type MovieProps = NativeStackScreenProps<MainStackParamList, 'Movie'>;
 

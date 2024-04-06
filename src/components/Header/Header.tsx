@@ -1,5 +1,4 @@
 import {StyleSheet, Text} from 'react-native';
-import React from 'react';
 
 interface HeaderProps {
   text: string;

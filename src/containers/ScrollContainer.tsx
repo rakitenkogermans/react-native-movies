@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import {ColorConstants, SizeConstants} from '../constants/StyleConstants.ts';
+import {ColorConstants, SizeConstants} from '../constants/StyleConstants';
 
 interface ScrollContainerProps {
   children: React.ReactNode;

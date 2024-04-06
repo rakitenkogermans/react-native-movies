@@ -3,7 +3,7 @@ import {
   ColorConstants,
   FontConstants,
   SizeConstants,
-} from '../../constants/StyleConstants.ts';
+} from '../../constants/StyleConstants';
 
 const styles = StyleSheet.create({
   welcome: {

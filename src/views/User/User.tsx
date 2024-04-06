@@ -8,7 +8,7 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {UserStackParamList} from '../../@types/Stacks';
 import {ScrollContainer} from '../../containers/ScrollContainer';
-import {useUserStore} from '../../store/userStore.ts';
+import {useUserStore} from '../../store/userStore';
 
 type UserProps = NativeStackScreenProps<UserStackParamList, 'User'>;
 

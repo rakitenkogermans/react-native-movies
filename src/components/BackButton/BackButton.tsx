@@ -1,5 +1,5 @@
 import {Pressable, StyleSheet, Text} from 'react-native';
-import {ColorConstants, SizeConstants} from '../../constants/StyleConstants.ts';
+import {ColorConstants, SizeConstants} from '../../constants/StyleConstants';
 
 interface BackButtonProps {
   text: string;

@@ -2,8 +2,8 @@ import {HomeProps} from './Home.types';
 import HomeView from './Home.view';
 import {useEffect, useState} from 'react';
 import {IGenre} from '../../@types/IGenre';
-import {useUserStore} from '../../store/userStore.ts';
-import {getGenres} from '../../services/movieService.ts';
+import {useUserStore} from '../../store/userStore';
+import {getGenres} from '../../services/movieService';
 
 const Home = (props: HomeProps) => {
   const [genres, setGenres] = useState<IGenre[]>([]);

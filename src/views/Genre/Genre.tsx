@@ -10,7 +10,7 @@ import {ScrollContainer} from '../../containers/ScrollContainer';
 import {getMovieByGenreId} from '../../services/movieService';
 import {MainStackParamList} from '../../@types/Stacks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useUserStore} from '../../store/userStore.ts';
+import {useUserStore} from '../../store/userStore';
 
 type GenreProps = NativeStackScreenProps<MainStackParamList, 'Genre'>;
 const Genre = (props: GenreProps) => {

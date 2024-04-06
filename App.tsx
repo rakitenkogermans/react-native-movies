@@ -1,13 +1,13 @@
 import Home from './src/views/home';
-import {Genre} from './src/views/Genre/Genre.tsx';
-import {Movie} from './src/views/Movie/Movie.tsx';
+import {Genre} from './src/views/Genre/Genre';
+import {Movie} from './src/views/Movie/Movie';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {MainStackParamList, UserStackParamList} from './src/@types/Stacks';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {ColorConstants, FontConstants} from './src/constants/StyleConstants.ts';
+import {ColorConstants, FontConstants} from './src/constants/StyleConstants';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {User} from './src/views/User/User.tsx';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {User} from './src/views/User/User';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TabNavigator = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator<MainStackParamList>();
@@ -93,7 +93,7 @@ const App = () => {
           component={MainStackScreen}
           options={{
             headerShown: false,
-            tabBarIcon: () => <Icon name="home" size={20} color="#070f49" />,
+            // tabBarIcon: () => <Icon name="home" size={20} color="#070f49" />,
           }}
         />
         <TabNavigator.Screen
@@ -107,7 +107,7 @@ const App = () => {
             headerTitleStyle: {
               fontWeight: FontConstants.weightBold,
             },
-            tabBarIcon: () => <Icon name="user" size={20} color="#070f49" />,
+            // tabBarIcon: () => <Icon name="user" size={20} color="#070f49" />,
           }}
         />
       </TabNavigator.Navigator>
