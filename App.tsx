@@ -1,4 +1,4 @@
-import {Home} from './src/views/Home/Home.tsx';
+import Home from './src/views/home';
 import {Genre} from './src/views/Genre/Genre.tsx';
 import {Movie} from './src/views/Movie/Movie.tsx';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
